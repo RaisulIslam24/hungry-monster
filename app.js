@@ -2,9 +2,9 @@
 const getMealData = meal => {
     const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${meal}`;
     fetch(url)
-    .then(response => response.json())
-    .then(data => displayMeals(data))
-    .catch(error => displayError("Sorry! It's not available now!"));
+        .then(response => response.json())
+        .then(data => displayMeals(data))
+        .catch(error => displayError("Sorry! It's not available now!"));
 }
 
 // Get input data
@@ -15,18 +15,20 @@ searchBtn.addEventListener('click', () => {
     const mealDetailsDiv = document.getElementById('MealDetails');
     mealDetailsDiv.style.display = 'none';
     const inputMeal = document.getElementById('meal').value;
-    if(inputMeal == ''){
-        alert("please give a meal name");
+    if (inputMeal == '') {
+        displayError("Please give a meal name");
+        const mealContainer = document.getElementById('meals');
+        mealContainer.innerHTML = '';
     }
-    else{
-    getMealData(inputMeal)
+    else {
+        getMealData(inputMeal)
     }
 })
 
 // Display meals data
 const displayMeals = meals => {
     const mealContainer = document.getElementById('meals');
-    mealContainer.innerHTML = "";
+    mealContainer.innerHTML = '';
     meals.meals.forEach(meal => {
         const mealDiv = document.createElement("div");
         mealDiv.className = 'mealsDetails';
@@ -54,7 +56,7 @@ const renderMealInfo = meal => {
     mealDetailsDiv.style.display = 'block';
     mealDetailsDiv.innerHTML = `
     <img class="rounded mx-auto d-block w-100" src="${meal.strMealThumb}">
-    <h2>${meal.strMeal}</h2>
+    <h2 class="text-center">${meal.strMeal}</h2>
     <h4>Ingredients:<h4>
     <ul>
         <li>${meal.strIngredient1}</li>

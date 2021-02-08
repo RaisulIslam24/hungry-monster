@@ -2,16 +2,16 @@
 const getMealData = meal => {
     const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${meal}`;
     fetch(url)
-        .then(response => response.json())
-        .then(data => displayMeals(data))
-        .catch(function() {
-            alert("Sorry! It's not available now");
-        });
+    .then(response => response.json())
+    .then(data => displayMeals(data))
+    .catch(error => displayError("Sorry! It's not available now!"));
 }
 
 // Get input data
 const searchBtn = document.getElementById('search-button');
 searchBtn.addEventListener('click', () => {
+    const errorMessage = document.getElementById('error-message');
+    errorMessage.innerText = '';
     const mealDetailsDiv = document.getElementById('MealDetails');
     mealDetailsDiv.style.display = 'none';
     const inputMeal = document.getElementById('meal').value;
@@ -69,4 +69,10 @@ const renderMealInfo = meal => {
         <li>${meal.strIngredient10}</li>
     </ul>
     `;
+}
+
+// Display error if meal not found
+const displayError = error => {
+    const errorTag = document.getElementById('error-message');
+    errorTag.innerText = error;
 }
